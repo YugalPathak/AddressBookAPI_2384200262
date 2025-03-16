@@ -1,9 +1,11 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
 using BusinessLayer.Interface;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ModelLayer.DTO;
+using Microsoft.AspNetCore.Authorization;
+using RepositoryLayer.Entity;
 
 namespace WebAPI.Controllers
 {
@@ -24,6 +26,42 @@ namespace WebAPI.Controllers
         public AddressBookController(IAddressBookBL addressBookService)
         {
             _addressBookService = addressBookService;
+        }
+
+        /// <summary>
+        /// Registers a new user with the given details.
+        /// </summary>
+        /// <param name="userDto">The user data transfer object containing user details.</param>
+        /// <returns>Returns a message indicating whether the registration was successful.</returns>
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] UserDTO userDto)
+        {
+            var result = _addressBookService.Register(userDto);
+            return Ok(new { message = result });
+        }
+
+        /// <summary>
+        /// Authenticates a user and returns a JWT token if successful.
+        /// </summary>
+        /// <param name="userDto">UserDTO containing the email and password for authentication.</param>
+        /// <returns>Returns a JWT token if authentication is successful, otherwise returns an unauthorized response.</returns>
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] UserDTO userDto)
+        {
+            var token = _addressBookService.Login(userDto.Email, userDto.Password);
+            if (token == "Invalid credentials") return Unauthorized(new { message = token });
+            return Ok(new { token });
+        }
+
+        /// <summary>
+        /// Gets protected data through token
+        /// </summary>
+        /// <returns>Return a message that it is a secure API</returns>
+        [Authorize]
+        [HttpGet("protected-data")]
+        public IActionResult GetProtectedData()
+        {
+            return Ok(new { message = "This is a secure API!" });
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
-﻿using ModelLayer.DTO;
-using ModelLayer.Model;
+﻿using ModelLayer.Model;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System.Collections.Generic;
@@ -22,6 +21,35 @@ namespace RepositoryLayer.Service
         /// Static counter to generate unique IDs for contacts.
         /// </summary>
         private static int _idCounter = 1;
+
+        private readonly AddressBookDbContext _context;
+
+        /// <summary>
+        /// Initializes a new instance of the UserRepository class.
+        /// </summary>
+        public AddressBookRL(AddressBookDbContext context)
+        {
+            _context = context;
+        }
+
+        /// <summary>
+        /// Registers a new user by adding them to the database.
+        /// </summary>
+        public AddressBookEntity RegisterUser(AddressBookEntity user)
+        {
+            _context.AddressBookEntries.Add(user);
+            _context.SaveChanges();
+            return user;
+        }
+
+        /// <summary>
+        /// Retrieves a user from the database using their email.
+        /// </summary>
+
+        public AddressBookEntity GetUserByEmail(string email)
+        {
+            return _context.AddressBookEntries.FirstOrDefault(u => u.Email == email);
+        }
 
         /// <summary>
         /// Retrieves all contacts from the address book.
