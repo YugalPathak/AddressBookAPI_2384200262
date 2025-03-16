@@ -13,3 +13,5 @@ C:\Users\patha\source\repos\AddressBookAPI\BusinessLayer\bin\Debug\net6.0\Reposi
 C:\Users\patha\source\repos\AddressBookAPI\BusinessLayer\bin\Debug\net6.0\RepositoryLayer.pdb
 C:\Users\patha\source\repos\AddressBookAPI\BusinessLayer\obj\Debug\net6.0\BusinessLayer.csproj.AssemblyReference.cache
 C:\Users\patha\source\repos\AddressBookAPI\BusinessLayer\obj\Debug\net6.0\Business.EA331CBA.Up2Date
+C:\Users\patha\source\repos\AddressBookAPI\BusinessLayer\bin\Debug\net6.0\ModelLayer.dll
+C:\Users\patha\source\repos\AddressBookAPI\BusinessLayer\bin\Debug\net6.0\ModelLayer.pdb

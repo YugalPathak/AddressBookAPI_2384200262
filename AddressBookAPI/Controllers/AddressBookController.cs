@@ -47,7 +47,7 @@ namespace AddressBookAPI.Controllers
         /// </summary>
         /// <param name="id">The ID of the contact.</param>
         /// <returns>The contact details if found; otherwise, NotFound.</returns>
-        [HttpGet("{id}")]
+        [HttpGet("get")]
         public IActionResult GetContactById(int id)
         {
             var contact = _addressBookService.GetContactById(id);

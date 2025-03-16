@@ -97,3 +97,11 @@ C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\Busin
 C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\BusinessLayer.pdb
 C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\Humanizer.dll
 C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\ModelLayer.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\ModelLayer.pdb
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\obj\Debug\net6.0\AddressBookAPI.MvcApplicationPartsAssemblyInfo.cs

@@ -12,3 +12,6 @@ C:\Users\patha\source\repos\AddressBookAPI\RepositoryLayer\obj\Debug\net6.0\refi
 C:\Users\patha\source\repos\AddressBookAPI\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.pdb
 C:\Users\patha\source\repos\AddressBookAPI\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.genruntimeconfig.cache
 C:\Users\patha\source\repos\AddressBookAPI\RepositoryLayer\obj\Debug\net6.0\ref\RepositoryLayer.dll
+C:\Users\patha\source\repos\AddressBookAPI\RepositoryLayer\bin\Debug\net6.0\ModelLayer.dll
+C:\Users\patha\source\repos\AddressBookAPI\RepositoryLayer\bin\Debug\net6.0\ModelLayer.pdb
+C:\Users\patha\source\repos\AddressBookAPI\RepositoryLayer\obj\Debug\net6.0\Reposito.A0A61804.Up2Date
