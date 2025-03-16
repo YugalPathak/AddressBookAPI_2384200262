@@ -143,6 +143,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="id">The ID of the contact.</param>
         /// <returns>The contact details if found; otherwise, NotFound.</returns>
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetContactById(int id)
         {
             string cacheKey = $"Contact_{id}";

@@ -12,15 +12,15 @@
   {
     "ContainingType": "WebAPI.Controllers.AddressBookController",
     "Method": "GetContactById",
-    "RelativePath": "api/addressbook",
-    "HttpMethod": "",
+    "RelativePath": "api/addressbook/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

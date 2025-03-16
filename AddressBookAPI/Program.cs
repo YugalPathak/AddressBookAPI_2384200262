@@ -14,6 +14,8 @@ using ModelLayer.Models;
 using RabbitMQ.Client;
 using Microsoft.Extensions.Configuration;
 using BusinessLayer.Services;
+using Microsoft.OpenApi.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,13 +90,36 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
-        ClockSkew = TimeSpan.Zero // Token expiry time exact rakhta hai
+        ClockSkew = TimeSpan.Zero
     };
 });
 
-builder.Services.AddAuthorization(); // Authorization Enable karo
+builder.Services.AddAuthorization();
+
+// Add Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Address Book API",
+        Version = "v1",
+        Description = "API for managing contacts in the Address Book application."
+    });
+});
 
 var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Address Book API V1");
+    });
+}
+
 
 
 // Configure the HTTP request pipeline.
