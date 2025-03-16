@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ModelLayer.Models;
-
+using RabbitMQ.Client;
+using Microsoft.Extensions.Configuration;
+using BusinessLayer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +43,14 @@ if (string.IsNullOrEmpty(connectionString))
 
 builder.Services.AddDbContext<AddressBookDbContext>(options =>
 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+// Start RabbitMQ Consumer
+var userConsumer = new RabbitMQConsumer("user_registered");
+var contactConsumer = new RabbitMQConsumer("contact_added");
+
+Task.Run(() => userConsumer.StartListening());
+Task.Run(() => contactConsumer.StartListening());
+
 
 // Add services to the container.
 

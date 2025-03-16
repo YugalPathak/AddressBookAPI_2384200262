@@ -7,6 +7,8 @@ using ModelLayer.DTO;
 using Microsoft.AspNetCore.Authorization;
 using BusinessLayer.Service;
 using AutoMapper;
+using BusinessLayer.Services;
+using Microsoft.AspNetCore.Identity;
 using RepositoryLayer.Entity;
 
 namespace WebAPI.Controllers
@@ -33,16 +35,34 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// Registers a new user with the given details.
+        /// Registers a new user in the system.
         /// </summary>
-        /// <param name="userDto">The user data transfer object containing user details.</param>
-        /// <returns>Returns a message indicating whether the registration was successful.</returns>
+        /// <param name="model">The user data (Name, Email, Password).</param>
+        /// <returns>Returns success or error response.</returns>
         [HttpPost("register")]
-        public IActionResult Register([FromBody] UserDTO userDto)
+        public IActionResult Register(UserDTO model)
         {
-            var result = _addressBookService.Register(userDto);
-            return Ok(new { message = result });
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new UserDTO
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
+            };
+
+            _addressBookService.Register(user);
+
+            // Publish Event for "User Registered"
+            var producer = new RabbitMQProducer("user_registered");
+            producer.PublishMessage(new { Email = user.Email, Name = user.Name });
+
+            return Ok(new { message = "User registered successfully!" });
         }
+
 
         /// <summary>
         /// Authenticates a user and returns a JWT token if successful.
@@ -147,44 +167,28 @@ namespace WebAPI.Controllers
             return Ok(new { message = "Data from database", contact });
         }
 
-
         /// <summary>
-        /// Adds a new contact to the address book.
+        /// Adds a new contact to the Address Book.
         /// </summary>
-        /// <param name="contact">The contact details to add.</param>
-        /// <returns>The newly added contact.</returns>
-        [HttpPost]
-        public IActionResult AddContact([FromBody] AddressBookModel contact)
+        /// <param name="model">The contact details (First Name, Last Name, Email, etc.).</param>
+        /// <returns>Returns success or error response.</returns>
+        [HttpPost("add-contact")]
+        public IActionResult AddContact(AddressBookModel model)
         {
-            if (contact == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(new ResponseModel<string>
-                {
-                    Success = false,
-                    Message = "Invalid contact data",
-                    Data = null
-                });
+                return BadRequest(ModelState);
             }
 
-            var addedContact = _addressBookService.AddContact(contact);
+            _addressBookService.AddContact(model);
 
-            if (addedContact == null)
-            {
-                return BadRequest(new ResponseModel<string>
-                {
-                    Success = false,
-                    Message = "Failed to add contact",
-                    Data = null
-                });
-            }
+            // Publish Event for "Contact Added"
+            var producer = new RabbitMQProducer("contact_added");
+            producer.PublishMessage(new { Name = model.FirstName, Email = model.Email });
 
-            return Ok(new ResponseModel<AddressBookModel>
-            {
-                Success = true,
-                Message = "Contact added successfully",
-                Data = new List<AddressBookModel> { addedContact }
-            });
+            return Ok(new { message = "Contact added successfully!" });
         }
+
 
         /// <summary>
         /// Updates an existing contact by ID.

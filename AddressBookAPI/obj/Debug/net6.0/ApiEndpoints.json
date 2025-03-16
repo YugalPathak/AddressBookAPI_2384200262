@@ -27,22 +27,6 @@
   },
   {
     "ContainingType": "WebAPI.Controllers.AddressBookController",
-    "Method": "AddContact",
-    "RelativePath": "api/addressbook",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "contact",
-        "Type": "ModelLayer.Model.AddressBookModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebAPI.Controllers.AddressBookController",
     "Method": "UpdateContact",
     "RelativePath": "api/addressbook/{id}",
     "HttpMethod": "PUT",
@@ -73,6 +57,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.AddressBookController",
+    "Method": "AddContact",
+    "RelativePath": "api/addressbook/add-contact",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "ModelLayer.Model.AddressBookModel",
         "IsRequired": true
       }
     ],
@@ -129,7 +129,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userDto",
+        "Name": "model",
         "Type": "ModelLayer.DTO.UserDTO",
         "IsRequired": true
       }
