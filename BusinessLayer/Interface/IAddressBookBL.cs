@@ -18,5 +18,7 @@ namespace BusinessLayer.Interface
         bool DeleteContact(int id);
         string Register(UserDTO userDto);
         string Login(string email, string password);
+        void ForgotPassword(string email);
+        void ResetPassword(string token, string newPassword);
     }
 }

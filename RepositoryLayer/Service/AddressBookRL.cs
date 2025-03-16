@@ -32,6 +32,12 @@ namespace RepositoryLayer.Service
             _context = context;
         }
 
+        public void UpdateUser(AddressBookEntity user)
+        {
+            _context.AddressBookEntries.Update(user);
+            _context.SaveChanges();
+        }
+
         /// <summary>
         /// Registers a new user by adding them to the database.
         /// </summary>
@@ -49,6 +55,51 @@ namespace RepositoryLayer.Service
         public AddressBookEntity GetUserByEmail(string email)
         {
             return _context.AddressBookEntries.FirstOrDefault(u => u.Email == email);
+        }
+
+        /// <summary>
+        /// Saves the reset token and its expiry time for the user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <param name="token">The generated reset token.</param>
+        public void SaveResetToken(int userId, string token)
+        {
+            var user = _context.AddressBookEntries.FirstOrDefault(u => u.Id == userId);
+            if (user != null)
+            {
+                user.ResetToken = token ?? throw new ArgumentNullException(nameof(token)); // Ensure token is not null
+                user.ResetTokenExpiry = DateTime.UtcNow.AddHours(1); // Token valid for 1 hour
+                _context.SaveChanges();
+            }
+        }
+
+
+        /// <summary>
+        /// Retrieves the user ID associated with a valid reset token.
+        /// </summary>
+        /// <param name="token">The reset token.</param>
+        /// <returns>The ID of the user if the token is valid; otherwise, returns null.</returns>
+        public int GetUserIdByResetToken(string token)
+        {
+            var user = _context.AddressBookEntries.FirstOrDefault(u => u.ResetToken == token && u.ResetTokenExpiry > DateTime.UtcNow);
+            return user.Id;
+        }
+
+        /// <summary>
+        /// Updates the user's password and clears the reset token after successful reset.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <param name="newPassword">The new hashed password to be set.</param>
+        public void UpdatePassword(int userId, string newPassword)
+        {
+            var user = _context.AddressBookEntries.FirstOrDefault(u => u.Id == userId);
+            if (user != null)
+            {
+                user.PasswordHash = newPassword; // Hashing should be done before calling this method
+                user.ResetToken = null; // Clear reset token
+                user.ResetTokenExpiry = null;
+                _context.SaveChanges();
+            }
         }
 
         /// <summary>

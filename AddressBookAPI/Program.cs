@@ -10,11 +10,13 @@ using RepositoryLayer.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ModelLayer.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection("Jwt"));
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 // ? Ensure Configuration is Correct
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
@@ -36,6 +38,10 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IAddressBookRL, AddressBookRL>();
 builder.Services.AddScoped<IAddressBookBL, AddressBookBL>();
 builder.Services.AddScoped<IJWTService, JWTService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+// Configure SMTP settings from appsettings.json
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 // Register AutoMapper
 builder.Services.AddAutoMapper(typeof(AddressBookMappingProfile));

@@ -54,6 +54,31 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
+        /// Initiates the password reset process by generating a reset token
+        /// and sending a password reset email to the user.
+        /// </summary>
+        /// <param name="request">Contains the user's email for password reset.</param>
+        /// <returns>Returns an Ok response if the email is sent successfully.</returns>
+        [HttpPost("forgot-password")]
+        public IActionResult ForgotPassword([FromBody] ForgotPasswordDTO request)
+        {
+            _addressBookService.ForgotPassword(request.Email);
+            return Ok("Password reset email sent.");
+        }
+
+        /// <summary>
+        /// Resets the user's password using the provided reset token and new password.
+        /// </summary>
+        /// <param name="request">Contains the reset token and new password.</param>
+        /// <returns>Returns an Ok response if the password is reset successfully.</returns>
+        [HttpPost("reset-password")]
+        public IActionResult ResetPassword([FromBody] ResetPasswordDTO request)
+        {
+            _addressBookService.ResetPassword(request.Token, request.NewPassword);
+            return Ok("Password reset successfully.");
+        }
+
+        /// <summary>
         /// Gets protected data through token
         /// </summary>
         /// <returns>Return a message that it is a secure API</returns>

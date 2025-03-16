@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 namespace ModelLayer.DTO
 {
     /// <summary>
-    /// Data Transfer Object (DTO) for user-related operations.
+    /// Data Transfer Object (DTO) for sending the email.
     /// </summary>
-    public class UserDTO
+    public class ForgotPasswordDTO
     {
-        public string Name { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
     }
 }
