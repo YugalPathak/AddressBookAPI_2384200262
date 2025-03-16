@@ -115,3 +115,6 @@ C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\Micro
 C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\Microsoft.Extensions.Hosting.Abstractions.dll
 C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\Microsoft.Extensions.ObjectPool.dll
 C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\patha\source\repos\AddressBookAPI\AddressBookAPI\bin\Debug\net6.0\StackExchange.Redis.dll

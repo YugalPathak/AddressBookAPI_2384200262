@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "p0rhJS6ktZw=",
+  "dgSpecHash": "32fIOpyL+1U=",
   "success": true,
   "projectFilePath": "C:\\Users\\patha\\source\\repos\\AddressBookAPI\\AddressBookAPI\\AddressBookAPI.csproj",
   "expectedPackageFiles": [
@@ -46,6 +46,7 @@
     "C:\\Users\\patha\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\6.0.36\\microsoft.entityframeworkcore.tools.6.0.36.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.1\\microsoft.extensions.caching.abstractions.6.0.1.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.3\\microsoft.extensions.caching.memory.6.0.3.nupkg.sha512",
+    "C:\\Users\\patha\\.nuget\\packages\\microsoft.extensions.caching.stackexchangeredis\\6.0.36\\microsoft.extensions.caching.stackexchangeredis.6.0.36.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.1\\microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
@@ -74,8 +75,10 @@
     "C:\\Users\\patha\\.nuget\\packages\\mysql.entityframeworkcore\\6.0.33\\mysql.entityframeworkcore.6.0.33.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\newtonsoft.json\\9.0.1\\newtonsoft.json.9.0.1.nupkg.sha512",
+    "C:\\Users\\patha\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.3\\pomelo.entityframeworkcore.mysql.6.0.3.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
+    "C:\\Users\\patha\\.nuget\\packages\\stackexchange.redis\\2.8.31\\stackexchange.redis.2.8.31.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\system.appcontext\\4.1.0\\system.appcontext.4.1.0.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\system.buffers\\4.6.0\\system.buffers.4.6.0.nupkg.sha512",
     "C:\\Users\\patha\\.nuget\\packages\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",

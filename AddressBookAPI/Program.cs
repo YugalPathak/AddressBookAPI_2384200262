@@ -18,6 +18,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection("Jwt"));
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
+// Implementing redis cache
+builder.Services.AddSingleton<RedisCacheService>();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379";
+    options.InstanceName = "SampleInstance";
+});
+
+// Register RedisCacheService
+builder.Services.AddSingleton<RedisCacheService>();
+
 // ? Ensure Configuration is Correct
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 

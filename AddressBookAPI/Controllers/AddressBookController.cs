@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ModelLayer.DTO;
 using Microsoft.AspNetCore.Authorization;
+using BusinessLayer.Service;
+using AutoMapper;
 using RepositoryLayer.Entity;
 
 namespace WebAPI.Controllers
@@ -18,14 +20,16 @@ namespace WebAPI.Controllers
     public class AddressBookController : ControllerBase
     {
         private readonly IAddressBookBL _addressBookService;
+        private readonly RedisCacheService _redisCache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddressBookController"/> class.
         /// </summary>
         /// <param name="addressBookService">Business layer service for address book operations.</param>
-        public AddressBookController(IAddressBookBL addressBookService)
+        public AddressBookController(IAddressBookBL addressBookService, RedisCacheService redisCache)
         {
             _addressBookService = addressBookService;
+            _redisCache = redisCache;
         }
 
         /// <summary>
@@ -94,15 +98,24 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns>A list of contacts.</returns>
         [HttpGet]
-        public IActionResult GetContacts()
+        public async Task<IActionResult> GetContacts()
         {
-            var contacts = _addressBookService.GetAllContacts();
-            return Ok(new ResponseModel<IEnumerable<AddressBookModel>>
+            string cacheKey = "AddressBookContacts";
+
+            // Check if data is in cache
+            var cachedContacts = await _redisCache.GetCacheAsync<IEnumerable<AddressBookModel>>(cacheKey);
+            if (cachedContacts != null)
             {
-                Success = true,
-                Message = "Contacts retrieved successfully",
-                Data = contacts
-            });
+                return Ok(new { message = "Data from cache", contacts = cachedContacts });
+            }
+
+            // If not in cache, fetch from database
+            var contacts = _addressBookService.GetAllContacts();
+
+            // Store data in Redis cache
+            await _redisCache.SetCacheAsync(cacheKey, contacts, TimeSpan.FromMinutes(10));
+
+            return Ok(new { message = "Data from database", contacts });
         }
 
         /// <summary>
@@ -110,21 +123,30 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="id">The ID of the contact.</param>
         /// <returns>The contact details if found; otherwise, NotFound.</returns>
-        [HttpGet("{id}")]
-        public IActionResult GetContactById(int id)
+        public async Task<IActionResult> GetContactById(int id)
         {
+            string cacheKey = $"Contact_{id}";
+
+            // Check if data is in cache
+            var cachedContact = await _redisCache.GetCacheAsync<AddressBookModel>(cacheKey);
+            if (cachedContact != null)
+            {
+                return Ok(new { message = "Data from cache", contact = cachedContact });
+            }
+
+            // If not in cache, fetch from database
             var contact = _addressBookService.GetContactById(id);
             if (contact == null)
             {
-                return NotFound(new ResponseModel<string> { Success = false, Message = "Contact not found", Data = null });
+                return NotFound(new { message = "Contact not found" });
             }
-            return Ok(new ResponseModel<AddressBookModel>
-            {
-                Success = true,
-                Message = "Contact retrieved successfully",
-                Data = new List<AddressBookModel> { contact }
-            });
+
+            // Store data in Redis cache
+            await _redisCache.SetCacheAsync(cacheKey, contact, TimeSpan.FromMinutes(10));
+
+            return Ok(new { message = "Data from database", contact });
         }
+
 
         /// <summary>
         /// Adds a new contact to the address book.
