@@ -1,5 +1,9 @@
+using BusinessLayer.Interface;
+using BusinessLayer.Service;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer;
+using RepositoryLayer.Interface;
+using RepositoryLayer.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
