@@ -1,5 +1,4 @@
 ﻿using ModelLayer.Model;
-using RepositoryLayer.Entity;
 using System.Collections.Generic;
 
 namespace BusinessLayer.Interface
@@ -10,10 +9,10 @@ namespace BusinessLayer.Interface
     /// </summary>
     public interface IAddressBookBL
     {
-        IEnumerable<AddressBookEntry> GetAllContacts();
-        AddressBookEntry GetContactById(int id);
-        AddressBookEntry AddContact(AddressBookEntry contact);
-        bool UpdateContact(int id, AddressBookEntry contact);
+        IEnumerable<AddressBookModel> GetAllContacts();
+        AddressBookModel GetContactById(int id);
+        AddressBookModel AddContact(AddressBookModel contact);
+        bool UpdateContact(int id, AddressBookModel contact);
         bool DeleteContact(int id);
     }
 }

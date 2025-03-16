@@ -1,4 +1,6 @@
-﻿using ModelLayer.Model;
+﻿using ModelLayer.DTO;
+using ModelLayer.Model;
+using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace RepositoryLayer.Service
         /// <summary>
         /// Static list to store address book entries in memory.
         /// </summary>
-        private static List<AddressBookEntry> _addressBook = new List<AddressBookEntry>();
+        private static List<AddressBookModel> _addressBook = new List<AddressBookModel>();
 
         /// <summary>
         /// Static counter to generate unique IDs for contacts.
@@ -25,7 +27,7 @@ namespace RepositoryLayer.Service
         /// Retrieves all contacts from the address book.
         /// </summary>
         /// <returns>A list of all address book entries.</returns>
-        public IEnumerable<AddressBookEntry> GetAll()
+        public IEnumerable<AddressBookModel> GetAll()
         {
             return _addressBook.ToList();
         }
@@ -35,7 +37,7 @@ namespace RepositoryLayer.Service
         /// </summary>
         /// <param name="id">The ID of the contact.</param>
         /// <returns>The contact details if found; otherwise, null.</returns>
-        public AddressBookEntry GetById(int id)
+        public AddressBookModel GetById(int id)
         {
             return _addressBook.SingleOrDefault(c => c.Id == id);
         }
@@ -45,7 +47,7 @@ namespace RepositoryLayer.Service
         /// </summary>
         /// <param name="contact">The contact details to add.</param>
         /// <returns>The newly added contact with a unique ID.</returns>
-        public AddressBookEntry AddContact(AddressBookEntry contact)
+        public AddressBookModel AddContact(AddressBookModel contact)
         {
             contact.Id = _idCounter++;
             _addressBook.Add(contact);
@@ -58,7 +60,7 @@ namespace RepositoryLayer.Service
         /// <param name="id">The ID of the contact to update.</param>
         /// <param name="contact">The updated contact details.</param>
         /// <returns>True if the update is successful; otherwise, false.</returns>
-        public bool UpdateContact(int id, AddressBookEntry contact)
+        public bool UpdateContact(int id, AddressBookModel contact)
         {
             var existingContact = _addressBook.FirstOrDefault(c => c.Id == id);
             if (existingContact == null)

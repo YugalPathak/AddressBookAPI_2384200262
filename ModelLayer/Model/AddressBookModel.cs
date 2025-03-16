@@ -5,7 +5,7 @@ namespace ModelLayer.Model
     /// <summary>
     /// Represents an entry in the address book.
     /// </summary>
-    public class AddressBookEntry
+    public class AddressBookModel
     {
         [Key]
         public int Id { get; set; }

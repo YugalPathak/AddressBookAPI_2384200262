@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
 using BusinessLayer.Interface;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using RepositoryLayer.Entity;
 
-namespace AddressBookAPI.Controllers
+namespace WebAPI.Controllers
 {
     /// <summary>
     /// Controller for managing address book contacts.
@@ -34,7 +34,7 @@ namespace AddressBookAPI.Controllers
         public IActionResult GetContacts()
         {
             var contacts = _addressBookService.GetAllContacts();
-            return Ok(new ResponseModel<IEnumerable<AddressBookEntry>>
+            return Ok(new ResponseModel<IEnumerable<AddressBookModel>>
             {
                 Success = true,
                 Message = "Contacts retrieved successfully",
@@ -47,7 +47,7 @@ namespace AddressBookAPI.Controllers
         /// </summary>
         /// <param name="id">The ID of the contact.</param>
         /// <returns>The contact details if found; otherwise, NotFound.</returns>
-        [HttpGet("get")]
+        [HttpGet("{id}")]
         public IActionResult GetContactById(int id)
         {
             var contact = _addressBookService.GetContactById(id);
@@ -55,11 +55,11 @@ namespace AddressBookAPI.Controllers
             {
                 return NotFound(new ResponseModel<string> { Success = false, Message = "Contact not found", Data = null });
             }
-            return Ok(new ResponseModel<AddressBookEntry>
+            return Ok(new ResponseModel<AddressBookModel>
             {
                 Success = true,
                 Message = "Contact retrieved successfully",
-                Data = new List<AddressBookEntry> { contact }
+                Data = new List<AddressBookModel> { contact }
             });
         }
 
@@ -69,7 +69,7 @@ namespace AddressBookAPI.Controllers
         /// <param name="contact">The contact details to add.</param>
         /// <returns>The newly added contact.</returns>
         [HttpPost]
-        public IActionResult AddContact([FromBody] AddressBookEntry contact)
+        public IActionResult AddContact([FromBody] AddressBookModel contact)
         {
             if (contact == null)
             {
@@ -93,11 +93,11 @@ namespace AddressBookAPI.Controllers
                 });
             }
 
-            return Ok(new ResponseModel<AddressBookEntry>
+            return Ok(new ResponseModel<AddressBookModel>
             {
                 Success = true,
                 Message = "Contact added successfully",
-                Data = new List<AddressBookEntry> { addedContact }
+                Data = new List<AddressBookModel> { addedContact }
             });
         }
 
@@ -108,7 +108,7 @@ namespace AddressBookAPI.Controllers
         /// <param name="contact">The updated contact details.</param>
         /// <returns>The updated contact details if successful; otherwise, NotFound.</returns>
         [HttpPut("{id}")]
-        public IActionResult UpdateContact(int id, [FromBody] AddressBookEntry contact)
+        public IActionResult UpdateContact(int id, [FromBody] AddressBookModel contact)
         {
             var result = _addressBookService.UpdateContact(id, contact);
             if (!result)
@@ -123,11 +123,11 @@ namespace AddressBookAPI.Controllers
 
             var updatedContact = _addressBookService.GetContactById(id);
 
-            return Ok(new ResponseModel<AddressBookEntry>
+            return Ok(new ResponseModel<AddressBookModel>
             {
                 Success = true,
                 Message = "Contact updated successfully",
-                Data = new List<AddressBookEntry> { updatedContact }
+                Data = new List<AddressBookModel> { updatedContact }
             });
         }
 

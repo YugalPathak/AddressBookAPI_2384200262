@@ -2,6 +2,7 @@
 using ModelLayer;
 using ModelLayer.DTO;
 using ModelLayer.Model;
+using RepositoryLayer.Entity;
 
 namespace BusinessLayer.Mappings
 {
@@ -12,7 +13,7 @@ namespace BusinessLayer.Mappings
     {
         public AddressBookMappingProfile()
         {
-            CreateMap<AddressBookEntry, AddressBookDTO>()
+            CreateMap<AddressBookModel, AddressBookDTO>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName))
                 .ReverseMap();
         }

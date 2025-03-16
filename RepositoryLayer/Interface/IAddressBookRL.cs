@@ -10,10 +10,10 @@ namespace RepositoryLayer.Interface
     /// </summary>
     public interface IAddressBookRL
     {
-        IEnumerable<AddressBookEntry> GetAll();
-        AddressBookEntry GetById(int id);
-        AddressBookEntry AddContact(AddressBookEntry contact);
-        bool UpdateContact(int id, AddressBookEntry contact);
+        IEnumerable<AddressBookModel> GetAll();
+        AddressBookModel GetById(int id);
+        AddressBookModel AddContact(AddressBookModel contact);
+        bool UpdateContact(int id, AddressBookModel contact);
         bool DeleteContact(int id);
     }
 }

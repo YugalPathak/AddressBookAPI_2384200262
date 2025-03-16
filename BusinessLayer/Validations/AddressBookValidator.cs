@@ -7,9 +7,9 @@ namespace BusinessLayer.Validations
     /// <summary>
     /// Validator for AddressBookEntryDto to enforce data validation rules.
     /// </summary>
-    public class AddressBookEntryValidator : AbstractValidator<AddressBookDTO>
+    public class AddressBookValidator : AbstractValidator<AddressBookDTO>
     {
-        public AddressBookEntryValidator()
+        public AddressBookValidator()
         {
             RuleFor(x => x.FullName).NotEmpty().WithMessage("Full Name is required");
             RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("Valid email is required");

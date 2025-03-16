@@ -8,7 +8,6 @@ using RepositoryLayer;
 using RepositoryLayer.Interface;
 using RepositoryLayer.Service;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // ? Ensure Configuration is Correct
@@ -35,7 +34,7 @@ builder.Services.AddSingleton<IAddressBookBL, AddressBookBL>();
 builder.Services.AddAutoMapper(typeof(AddressBookMappingProfile));
 
 // Register FluentValidation
-builder.Services.AddValidatorsFromAssemblyContaining<AddressBookEntryValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<AddressBookValidator>();
 
 var app = builder.Build();
 

@@ -6,6 +6,6 @@ namespace ModelLayer.Model
     {
         public bool Success { get; set; }
         public string Message { get; set; }
-        public IEnumerable<AddressBookEntry> Data { get; set; }
+        public IEnumerable<AddressBookModel> Data { get; set; }
     }
 }
